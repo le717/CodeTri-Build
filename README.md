@@ -1,8 +1,6 @@
 # CodeTri-Build #
 > A custom-built, Node/`npm` script-powered build system.
 
-## History ##
-
 ## Features ##
 * Basic file copying
 * SCSS build system
@@ -13,6 +11,10 @@
     * Minify/concatenate
     * Removes IE8 optimizations
     * Drops `console.*` functions
+
+## Usage ##
+
+## History ##
 
 ## License ##
 [MIT](LICENSE)

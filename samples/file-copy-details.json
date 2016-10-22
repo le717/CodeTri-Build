@@ -1,0 +1,6 @@
+[
+  {
+    "from": "node_modules/classlist.js/classList.js",
+    "to": "js/lib/classList.js"
+  }
+]
