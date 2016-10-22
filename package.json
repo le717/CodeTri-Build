@@ -1,0 +1,18 @@
+{
+  "name": "codetri-build",
+  "version": "1.0.0",
+  "description": "A custom-built, Node/`npm` script-powered build system.",
+  "license": "MIT",
+  "author": "Caleb Ely",
+  "homepage": "http://codetri.net",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/le717/CodeTri-Build.git"
+  },
+  "dependencies": {
+    "autoprefixer": "^6.5.1",
+    "node-sass": "^3.10.1",
+    "postcss": "^5.2.5",
+    "uglify-js": "^2.7.3"
+  }
+}
