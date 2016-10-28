@@ -1,0 +1,9 @@
+{
+  "details": {
+    "outputFile": "script.min.js"
+  },
+  "exceptions": {
+    "lib": ["prism.js"],
+    "main": null
+  }
+}

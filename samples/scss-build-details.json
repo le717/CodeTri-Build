@@ -1,0 +1,8 @@
+{
+  "details": {
+    "inputFile": "style.scss",
+    "outputFile": "style.min.css",
+    "scssStyle": "compressed",
+    "indented": false
+  }
+}
