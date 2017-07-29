@@ -3,15 +3,17 @@
 
 const fs       = require("fs"),
       path     = require("path"),
-      uglifyjs = require("uglify-js"),
+      mkdirp   = require("mkdirp"),
+      UglifyJS = require("uglify-js"),
 
       // Root project directory
       rootDir = process.cwd(),
 
       // I/O details
       input      = [],
-      output     = require("../scripts/js-build-details"),
-      outputPath = path.join(rootDir, "build", "js", output.details.outputFile);
+      output     = require("./js-build-details"),
+      outputPath = path.join(rootDir, "build", "js"),
+      outputFile = path.join(rootDir, "build", "js", output.details.outputFile);
 
 
 /**
@@ -21,23 +23,21 @@ const fs       = require("fs"),
  * @param {string} file - File name of script.
  * @param {string} type - Category this script belongs to.
  *                        Acceptable values are "lib" and "main".
- * @returns {boolean} True if script should be excluded, False otherwise.
+ * @return {boolean} True if script should be excluded, False otherwise.
  */
 function _shouldExclude(file, type) {
-  let result = false;
-
   if (output.exceptions[type] && output.exceptions[type].length > 0) {
-    result = output.exceptions[type].indexOf(file) > -1;
+    return output.exceptions[type].includes(file);
   }
 
-  return result;
+  return false;
 }
 
 // Switch to where we keep out scripts
 process.chdir(path.join(rootDir, "js"));
 
 // Get the get the third-party libaries to be minified
-// TODO Change to async methods
+// TODO Convert to async method
 fs.readdirSync(path.resolve(process.cwd(), "lib")).forEach(file => {
   let fName = path.resolve("lib", file),
       stats = fs.statSync(fName);
@@ -57,19 +57,20 @@ fs.readdirSync(process.cwd()).forEach(file => {
   }
 });
 
+// Create the output path
+// TODO Convert to async
+mkdirp.sync(outputPath);
+
 // Build the JS and write it to file
-let compress = uglifyjs.minify(input, {
-  mangle: true,
-  compress: {
-    screw_ie8: true,
-    drop_console: true
-  }
+let compress = UglifyJS.minify(input, {
+  mangle: { screw_ie8: true },
+  compress: { screw_ie8: true }
 });
-fs.writeFileSync(outputPath, compress.code);
+fs.writeFileSync(outputFile, compress.code);
 
 // Check build result
 try {
-  fs.statSync(outputPath);
+  fs.statSync(outputFile);
   console.log("JavaScript built successfully.");
 
   // It did not build
